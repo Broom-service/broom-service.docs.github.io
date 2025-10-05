@@ -89,3 +89,22 @@ Dostupné akce:
             * Nastavit stav na `Inactive`
       * Transakčně uložit změny do DB
       * Přesměrovat přihlášeného uživatele na seznam uživatelů
+
+### Registrace uživatele
+
+Registrace == odsouhlasení údajů (jméno, příjmení).
+
+* Email uživatel, který se pokouší přihlásit, musí být přiřazený k nějakému záznamu v databázi - `Admin` uživatel uživatele vytvořil
+       * Pokud email v DB nebude, tak nelze registraci provést
+* Kontroly:
+       * Uživatel s daným emailem je založen
+       * Účet uživatele je ve stavu `New`
+* Zpracování:
+       * Získat email aktuálně přihlášeného uživatele (Principal)
+       * Vyhodnotit kontroly
+       * Načíst z databáze objekt uživatele
+       * Zobrazit uživateli hodnoty z databáze, jméno a příjmení může upravit
+       * Aktualizovat údaje uživatele v databázi a nastavit nový stav účtu:
+           * Pokud má přiřazeny role, nastavit stav na `Active`
+           * Pokud žádné role nemá, nastavit stav na `Registered`
+       * Pokud je nový stav účtu `Registered`, zobrazit uživateli informaci, že byl úspěšně zaregistrován, ale musí vyčkat na přiřazení role
